@@ -67,6 +67,18 @@ class AssetTagHelperTest < ActionView::TestCase
     assert_equal expected, image_tag("baz.png", size: "100x250", lazy: true)
   end
 
+  def test_on_the_fly_custom_placeholder
+    Lazyload::Rails.configure do |config|
+      config.placeholder = "/public/img/grey.gif"
+    end
+
+    expected = '<img alt="Baz" height="250" src="/public/img/grey.gif"' +
+      ' width="100" data-original="/images/baz.png">'
+
+    options = { size: "200x150", data: { placeholder: "/public/img/grey.gif" }, lazy: true }
+    assert_equal expected, image_tag("baz.png", options)
+  end
+
   def test_nonlazy_attributes
     Lazyload::Rails.reset
 
