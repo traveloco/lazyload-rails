@@ -79,6 +79,28 @@ class AssetTagHelperTest < ActionView::TestCase
     assert_equal expected, image_tag("baz.png", options)
   end
 
+  def test_setting_class
+    Lazyload::Rails.configure do |config|
+      config.additional_class = "lazyload"
+    end
+
+    expected = '<img src="/public/img/grey.gif" alt="Baz" width="100" height="250"' +
+      ' data-original="/images/baz.png" class="lazyload">'
+
+    assert_equal expected, image_tag("baz.png", size: "100x250", lazy: true)
+  end
+
+  def test_adding_class
+    Lazyload::Rails.configure do |config|
+      config.additional_class = "lazyload"
+    end
+
+    expected = '<img class="initial-class lazyload" src="/public/img/grey.gif" alt="Baz"' +
+      ' width="100" height="250" data-original="/images/baz.png">'
+
+    assert_equal expected, image_tag("baz.png", size: "100x250", class: "initial-class", lazy: true)
+  end
+
   def test_nonlazy_attributes
     Lazyload::Rails.reset
 

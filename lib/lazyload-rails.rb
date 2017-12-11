@@ -53,6 +53,14 @@ ActionView::Helpers::AssetTagHelper.module_eval do
     img["data-original"] = img["src"]
     img["src"] = img["data-placeholder"] || Lazyload::Rails.configuration.placeholder
 
+    if Lazyload::Rails.configuration.additional_class
+      if img["class"]
+        img["class"] += " #{Lazyload::Rails.configuration.additional_class}"
+      else
+        img["class"] = Lazyload::Rails.configuration.additional_class
+      end
+    end
+
     img.to_s.html_safe
   end
 
