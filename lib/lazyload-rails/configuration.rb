@@ -20,9 +20,17 @@ module Lazyload
         @placeholder = new_placeholder
       end
 
+      def additional_class
+        @additional_class
+      end
+      def additional_class=(new_additional_class)
+        @additional_class = new_additional_class
+      end
+
       # Set default settings
       def initialize
         @placeholder = "http://www.appelsiini.net/projects/lazyload/img/grey.gif"
+        @additional_class = nil
       end
     end
   end
